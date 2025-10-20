@@ -107,3 +107,26 @@
   font-style: italic;
   font-family: 'Open Sans', sans-serif;
 }
+
+.restart-btn {
+  display: block;
+  margin: 2rem auto;
+  background-color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transform: translateY(-0.3rem);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

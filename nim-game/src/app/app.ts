@@ -33,10 +33,11 @@ interface Pile {
 export class App implements OnInit {
   protected readonly title = signal('nim-game');
 
-  N = 6; // number of piles
+  N = 0; // number of piles
   piles: Pile[] = [];
   showInput = -1;
   userMove = true;
+  gameEnded = true;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -66,7 +67,10 @@ export class App implements OnInit {
       for (let i = 0; i < this.piles.length; i++) {
         if (this.piles[i].key == pile.key) {
           this.piles.splice(i, 1);
-          console.log(this.piles);
+          if (!this.piles.length) {
+            this.gameEnded = true;
+            return;
+          }
           this.showInput = -1;
           if (this.userMove) {
             this.robotMove();
@@ -114,5 +118,12 @@ export class App implements OnInit {
       }
       this.userMove = true;
     }, 3000); // wait 3s
+  }
+
+  restart() {
+    this.gameEnded = false;
+    this.N = 6;
+    this.generatePiles();
+    this.userMove = true;
   }
 }

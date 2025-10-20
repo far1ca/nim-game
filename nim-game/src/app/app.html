@@ -43,5 +43,10 @@
     </div>
     }
   </div>
+  @if(!gameEnded) {
   <div class="move-text">{{ userMove ? 'Your Move!' : 'The robot is making a move..' }}</div>
+  } @else {
+  <button (click)="restart()" class="restart-btn">Try again?</button>
+  <div class="move-text">Game Over! {{ userMove ? 'The robot wins!' : 'You win!' }}</div>
+  }
 </div>
