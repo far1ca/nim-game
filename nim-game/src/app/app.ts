@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 interface Pile {
   coinsArray: number[];
@@ -11,6 +12,20 @@ interface Pile {
   imports: [CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  animations: [
+    trigger('coinAnim', [
+      // When a coin is removed from DOM
+      transition(':leave', [
+        animate(
+          '600ms ease',
+          style({
+            transform: 'translateY(50px)',
+            opacity: 0,
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class App {
   protected readonly title = signal('nim-game');
@@ -38,5 +53,6 @@ export class App {
   removeCoins(pile: Pile, coinsToRemove: number) {
     if (!coinsToRemove) return;
     coinsToRemove = Math.min(coinsToRemove, pile.coinsArray.length);
+    pile.coinsArray.splice(pile.coinsArray.length - coinsToRemove, coinsToRemovey);
   }
 }
