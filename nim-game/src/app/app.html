@@ -61,7 +61,7 @@
     <div style="display: flex; flex-direction: column; align-items: center" @coinAnim>
       <div class="pile" (click)="makeInputVisible(pile.key)">
         <img src="assets/images/coin-top.png" width="100px" alt="Coin Stack Top" />
-        @for (coin of pile.coinsArray; track $index) {
+        @for (coin of pile.coinsArray; track coin.id) {
         <img src="assets/images/coin-stack.png" width="100px" alt="Coin Stack" @coinAnim />
         }
         <div class="coin-num">{{ pile.coinsArray.length + 1 }}</div>

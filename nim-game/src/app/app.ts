@@ -1,11 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, signal, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  NgZone,
+  OnInit,
+  signal,
+  TemplateRef,
+} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+interface Coin {
+  id: number;
+}
+
 interface Pile {
-  coinsArray: number[];
+  coinsArray: Coin[];
   key: number;
 }
 
@@ -42,7 +54,7 @@ export class App implements OnInit {
   gameEnded = false;
   private modalService = inject(NgbModal);
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.generatePiles();
@@ -57,9 +69,12 @@ export class App implements OnInit {
 
   generatePiles() {
     this.piles = Array.from({ length: this.N }, (_, i) => ({
-      coinsArray: Array.from({ length: Math.floor(Math.random() * 10) + 1 }, () => 1),
+      coinsArray: Array.from({ length: Math.floor(Math.random() * 10) + 1 }, (_, j) => ({
+        id: i * 100 + j,
+      })),
       key: i + 1,
     }));
+    this.cdr.detectChanges();
   }
 
   makeInputVisible(key: number) {
@@ -72,8 +87,8 @@ export class App implements OnInit {
     coinsToRemove = Math.min(coinsToRemove, pile.coinsArray.length + 1);
     if (coinsToRemove == pile.coinsArray.length + 1) {
       for (let i = 0; i < this.piles.length; i++) {
-        if (this.piles[i].key == pile.key) {
-          this.piles.splice(i, 1);
+        if (this.piles[i].key === pile.key) {
+          this.piles = this.piles.slice(0, i).concat(this.piles.slice(i + 1));
           if (!this.piles.length) {
             this.gameEnded = true;
             return;
@@ -82,47 +97,49 @@ export class App implements OnInit {
           if (this.userMove) {
             this.robotMove();
           } else this.userMove = true;
+          this.cdr.detectChanges();
           return;
         }
       }
     }
-    pile.coinsArray.splice(pile.coinsArray.length - coinsToRemove, coinsToRemove);
+    pile.coinsArray = pile.coinsArray.slice(0, pile.coinsArray.length - coinsToRemove);
     this.showInput = -1;
     if (this.userMove) {
       this.robotMove();
     } else this.userMove = true;
+    this.cdr.detectChanges();
   }
 
   robotMove() {
     this.userMove = false;
     setTimeout(() => {
-      let xor = 0;
-      for (const pile of this.piles) {
-        xor ^= pile.coinsArray.length + 1;
-      }
-      if (!xor) {
-        this.removeCoins(
-          this.piles[0],
-          Math.floor(Math.random() * this.piles[0].coinsArray.length) + 1
-        );
-        this.cdr.detectChanges();
-        return;
-      }
-      let d = 0;
-      for (let i = 0; i < 10; ++i) {
-        if ((xor >> i) & 1) d = i;
-      }
-      for (const pile of this.piles) {
-        const pileSize = pile.coinsArray.length + 1;
-        if ((pileSize >> d) & 1) {
-          const targetSize = pileSize ^ xor;
-          const coinsToRemove = pileSize - targetSize;
-          this.removeCoins(pile, coinsToRemove);
-          this.cdr.detectChanges();
+      this.ngZone.run(() => {
+        let xor = 0;
+        for (const pile of this.piles) {
+          xor ^= pile.coinsArray.length + 1;
+        }
+        if (!xor) {
+          this.removeCoins(
+            this.piles[0],
+            Math.floor(Math.random() * this.piles[0].coinsArray.length) + 1
+          );
           return;
         }
-      }
-      this.userMove = true;
+        let d = 0;
+        for (let i = 0; i < 10; ++i) {
+          if ((xor >> i) & 1) d = i;
+        }
+        for (const pile of this.piles) {
+          const pileSize = pile.coinsArray.length + 1;
+          if ((pileSize >> d) & 1) {
+            const targetSize = pileSize ^ xor;
+            const coinsToRemove = pileSize - targetSize;
+            this.removeCoins(pile, coinsToRemove);
+            return;
+          }
+        }
+        this.userMove = true;
+      });
     }, 3000); // wait 3s
   }
 
