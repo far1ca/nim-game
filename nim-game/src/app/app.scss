@@ -1,0 +1,31 @@
+.game-container {
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #f3ec78, #af4261);
+  color: white;
+  overflow: auto;
+}
+
+.game-heading {
+  text-align: center;
+  margin-top: 5rem;
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+.game-subheading {
+  margin: 1rem auto;
+  max-width: 800px;
+  text-align: center;
+  font-style: italic;
+}
+
+.pile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 80vw;
+  margin: 5rem auto;
+  align-items: center;
+}

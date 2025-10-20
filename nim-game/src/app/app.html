@@ -1,0 +1,19 @@
+<div class="game-container">
+  <div class="game-heading">Nim Game</div>
+  <div class="game-subheading">
+    You've been randomly given x piles of coins, each containing a random amount. Take coins by
+    clicking on the piles and inputting the amount you want to take. When you do so, the computer
+    will make its' move. The player that can't make a move loses. Can you win?
+  </div>
+  <div class="pile-container">
+    @for (pile of piles; track pile) {
+    <div class="pile">
+      @for (i of [1,2,3,4,5,6,7,8,9,10]; track $index) { @if(i < pile) {
+      <img src="../assets/images/coin-stack.png" alt="Coin Stack" />
+      } @if(i == pile) {
+      <img src="../assets/images/coin-top.png" alt="Coin Stack Top" />
+      } }
+    </div>
+    }
+  </div>
+</div>
