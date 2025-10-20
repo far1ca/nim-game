@@ -28,6 +28,8 @@
   max-width: 70vw;
   margin: 5rem auto;
   align-items: end;
+
+  transition: all 0.5s ease-in;
 }
 
 .pile {
@@ -38,6 +40,11 @@
   &:hover {
     cursor: pointer;
     transform: translateY(-0.5rem);
+  }
+
+  img {
+    margin-top: -10px; // overlap coins
+    transition: transform 0.5s ease, opacity 0.5s ease;
   }
 }
 
