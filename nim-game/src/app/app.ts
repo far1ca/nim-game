@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, signal, TemplateRef } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface Pile {
   coinsArray: number[];
@@ -33,11 +35,12 @@ interface Pile {
 export class App implements OnInit {
   protected readonly title = signal('nim-game');
 
-  N = 0; // number of piles
+  N = 6; // number of piles
   piles: Pile[] = [];
   showInput = -1;
   userMove = true;
-  gameEnded = true;
+  gameEnded = false;
+  private modalService = inject(NgbModal);
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -46,6 +49,10 @@ export class App implements OnInit {
     setTimeout(() => {
       this.cdr.detectChanges();
     }, 300);
+  }
+
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   generatePiles() {
@@ -80,7 +87,6 @@ export class App implements OnInit {
       }
     }
     pile.coinsArray.splice(pile.coinsArray.length - coinsToRemove, coinsToRemove);
-    console.log(this.piles);
     this.showInput = -1;
     if (this.userMove) {
       this.robotMove();

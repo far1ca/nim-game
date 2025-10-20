@@ -2,7 +2,6 @@
   min-height: 100vh;
   width: 100%;
   font-family: 'Open Sans', sans-serif;
-  background: linear-gradient(135deg, #f3ec78, #af4261);
   color: white;
   overflow: auto;
 }
@@ -26,7 +25,7 @@
   flex-direction: row;
   justify-content: space-between;
   max-width: 70vw;
-  margin: 5rem auto;
+  margin: 3rem auto 0 auto;
   align-items: end;
 
   transition: all 0.5s ease-in;
@@ -72,13 +71,10 @@
   transition: all 0.5s ease-in;
 
   svg {
-    background-color: white;
-    border-radius: 100px;
     transition: all 0.3s ease-in;
 
     &:hover {
       cursor: pointer;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       transform: translateY(-0.3rem);
     }
   }
@@ -87,7 +83,7 @@
 .remove-input {
   border-radius: 10px;
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0.8rem;
   text-align: center;
 
   &:focus {
@@ -129,4 +125,33 @@
   &:focus {
     outline: none;
   }
+}
+
+// Modal button styling
+
+.modal-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  display: block;
+  margin: 2rem auto;
+  transition: all 0.3s ease-in;
+  font-size: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transform: translateY(-0.3rem);
+  }
+}
+
+// Background SVG styling
+
+.bg-svg {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
 }
