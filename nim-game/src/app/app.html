@@ -28,22 +28,22 @@
     </style>
   </defs>
   <path
-    fill="#9b5de5"
+    fill="#eba534"
     class="out-top"
     d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z"
   />
   <path
-    fill="#f15bb5"
+    fill="#ba4822"
     class="in-top"
     d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z"
   />
   <path
-    fill="#00bbf9"
+    fill="#eba534"
     class="out-bottom"
     d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z"
   />
   <path
-    fill="#00f5d4"
+    fill="#ba4822"
     class="in-bottom"
     d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z"
   />
@@ -105,7 +105,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Winning Strategy</h4>
     <button
       type="button"
       class="btn-close"
@@ -113,5 +113,33 @@
       (click)="modal.dismiss('Cross click')"
     ></button>
   </div>
-  <div class="modal-body">test</div>
+  <div class="modal-body">
+    The short answer is - <span style="font-weight: 800">bitwise XOR!</span>
+    <br />
+    <p>
+      Basically, if you take the
+      <a href="https://en.wikipedia.org/wiki/Bitwise_operation#XOR" target="_blank">bitwise XOR</a>
+      of all pile sizes at any point in the game, and the result is 0, then you are in a losing
+      position if your opponent plays optimally. If the result is non-zero, you are in a winning
+      position. To make a move that forces your opponent into a losing position, you need to make a
+      move that results in the XOR of all pile sizes being 0.
+    </p>
+    <br />
+    <p>
+      A good question is:
+      <span style="font-style: italic">"why is XOR 0 the losing position?"</span> Well, the losing
+      state is when there are no coins left - and that state has a XOR of zero.
+    </p>
+    <br />
+    <p>
+      From any non-zero XOR state, there is always a move that can be made to reach a zero XOR
+      state. Conversely, from a zero XOR state, any move will lead to a non-zero XOR state. Thus,
+      players can force their opponents into losing positions by making moves that result in a XOR
+      of zero.
+    </p>
+    <br />
+    <a href="https://cp-algorithms.com/game_theory/sprague-grundy-nim.html" target="_blank"
+      >You can find the proof for the previous statement here.</a
+    >
+  </div>
 </ng-template>
