@@ -97,6 +97,7 @@
 }
 
 .move-text {
+  margin-top: 3rem;
   text-align: center;
   font-size: 2rem;
   font-weight: 600;
@@ -143,6 +144,18 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transform: translateY(-0.3rem);
   }
+}
+
+// Robot move text styling
+.robot-text {
+  font-style: italic;
+  opacity: 0;
+  text-align: center;
+  transform: all 0.5s ease-in;
+}
+
+.robot-text-show {
+  opacity: 1;
 }
 
 // Background SVG styling

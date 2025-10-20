@@ -50,6 +50,8 @@ export class App implements OnInit {
   N = 6; // number of piles
   piles: Pile[] = [];
   showInput = -1;
+  robotMoveCoins = -1;
+  robotMovePile = -1;
   userMove = true;
   gameEnded = false;
   private modalService = inject(NgbModal);
@@ -134,7 +136,11 @@ export class App implements OnInit {
           if ((pileSize >> d) & 1) {
             const targetSize = pileSize ^ xor;
             const coinsToRemove = pileSize - targetSize;
+            this.robotMoveCoins = coinsToRemove;
+            this.robotMovePile = pile.key;
             this.removeCoins(pile, coinsToRemove);
+            this.robotMoveCoins = -1;
+            this.robotMovePile = -1;
             return;
           }
         }
