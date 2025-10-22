@@ -15,6 +15,7 @@
 
 .game-subheading {
   margin: 1rem auto;
+  padding: 0 1rem;
   max-width: 800px;
   text-align: center;
   font-style: italic;
@@ -23,9 +24,10 @@
 .pile-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 8rem;
-  max-width: 70vw;
+  padding: 0 3rem;
   margin: 5rem auto 0 auto;
   align-items: end;
 
@@ -73,11 +75,9 @@
 
   svg {
     transition: all 0.3s ease-in;
-
-    &:hover {
-      cursor: pointer;
-      transform: translateY(-0.3rem);
-    }
+  }
+  &:hover {
+    cursor: default;
   }
 }
 
@@ -90,11 +90,22 @@
   &:focus {
     outline: none;
   }
+
+  &:hover {
+    cursor: default;
+  }
 }
 
 .remove-box-show {
   opacity: 1;
   transform: translateY(0);
+
+  svg {
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-0.3rem);
+    }
+  }
 }
 
 .move-text {
@@ -148,11 +159,23 @@
 }
 
 // Robot move text styling
+.robot-text-container {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  opacity: 0;
+  transition: all 0.5s ease-in;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .robot-text {
   font-style: italic;
-  opacity: 0;
   text-align: center;
-  transition: all 0.5s ease-in;
+  font-size: 1.2rem;
 }
 
 .robot-text-show {

@@ -59,7 +59,7 @@
   <div class="pile-container">
     @for (pile of piles; track pile.key) {
     <div style="display: flex; flex-direction: column; align-items: center" @coinAnim>
-      <div class="pile" (click)="makeInputVisible(pile.key)">
+      <div class="pile" (click)="makeInputVisible(pile.key)" id="pile-{{ pile.key }}">
         <img src="assets/images/coin-top.png" width="100px" alt="Coin Stack Top" />
         @for (coin of pile.coinsArray; track coin.id) {
         <img src="assets/images/coin-stack.png" width="100px" alt="Coin Stack" @coinAnim />
@@ -101,8 +101,8 @@
   <div class="move-text">Game Over! {{ userMove ? 'The robot wins!' : 'You win!' }}</div>
   }
   <button class="modal-btn" (click)="open(content)">How does it work?</button>
-  <div class="robot-text" [ngClass]="{ 'robot-text-show': showRobotMove }">
-    The robot took {{ robotMoveCoins }} from pile {{ robotMovePile }}
+  <div class="robot-text-container" [ngClass]="{ 'robot-text-show': showRobotMove }">
+    <div class="robot-text">The robot took {{ robotMoveCoins }} from pile {{ robotMovePile }}</div>
   </div>
 </div>
 

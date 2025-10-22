@@ -133,6 +133,7 @@ export class App implements OnInit {
           xor ^= pile.coinsArray.length + 1;
         }
         if (!xor) {
+          this.scrollTo('pile-' + this.piles[0].key);
           this.removeCoins(
             this.piles[0],
             Math.floor(Math.random() * this.piles[0].coinsArray.length) + 1
@@ -148,6 +149,7 @@ export class App implements OnInit {
           if ((pileSize >> d) & 1) {
             const targetSize = pileSize ^ xor;
             const coinsToRemove = pileSize - targetSize;
+            this.scrollTo('pile-' + pile.key);
             this.removeCoins(pile, coinsToRemove);
             return;
           }
@@ -162,5 +164,12 @@ export class App implements OnInit {
     this.N = 6;
     this.generatePiles();
     this.userMove = true;
+  }
+
+  scrollTo(elementId: string) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
