@@ -66,6 +66,10 @@ export class App implements OnInit {
     }, 300);
   }
 
+  openGithub() {
+    window.open('https://github.com/far1ca/nim-game', '_blank');
+  }
+
   open(content: TemplateRef<any>) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
