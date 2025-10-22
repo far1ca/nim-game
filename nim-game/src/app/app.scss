@@ -8,7 +8,7 @@
 
 .game-heading {
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
   font-weight: 800;
   font-size: 3rem;
 }
@@ -23,9 +23,10 @@
 .pile-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 8rem;
   max-width: 70vw;
-  margin: 3rem auto 0 auto;
+  margin: 5rem auto 0 auto;
   align-items: end;
 
   transition: all 0.5s ease-in;
@@ -151,7 +152,7 @@
   font-style: italic;
   opacity: 0;
   text-align: center;
-  transform: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
 }
 
 .robot-text-show {

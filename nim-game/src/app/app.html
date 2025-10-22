@@ -101,7 +101,7 @@
   <div class="move-text">Game Over! {{ userMove ? 'The robot wins!' : 'You win!' }}</div>
   }
   <button class="modal-btn" (click)="open(content)">How does it work?</button>
-  <div class="robot-text" [ngClass]="{ 'robot-text-show': robotMoveCoins !== -1 }">
+  <div class="robot-text" [ngClass]="{ 'robot-text-show': showRobotMove }">
     The robot took {{ robotMoveCoins }} from pile {{ robotMovePile }}
   </div>
 </div>

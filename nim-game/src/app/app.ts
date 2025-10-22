@@ -54,6 +54,7 @@ export class App implements OnInit {
   robotMovePile = -1;
   userMove = true;
   gameEnded = false;
+  showRobotMove = false;
   private modalService = inject(NgbModal);
 
   constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
@@ -87,12 +88,23 @@ export class App implements OnInit {
   removeCoins(pile: Pile, coinsToRemove: number) {
     if (!coinsToRemove) return;
     coinsToRemove = Math.min(coinsToRemove, pile.coinsArray.length + 1);
+    if (!this.userMove) {
+      this.robotMoveCoins = coinsToRemove;
+      this.robotMovePile = pile.key;
+      this.showRobotMove = true;
+      setTimeout(() => {
+        this.showRobotMove = false;
+        this.cdr.detectChanges();
+      }, 2000); // reset robot move indicators after animation
+    }
     if (coinsToRemove == pile.coinsArray.length + 1) {
       for (let i = 0; i < this.piles.length; i++) {
         if (this.piles[i].key === pile.key) {
           this.piles = this.piles.slice(0, i).concat(this.piles.slice(i + 1));
           if (!this.piles.length) {
             this.gameEnded = true;
+            if (!this.userMove) this.userMove = true;
+            else this.userMove = false;
             return;
           }
           this.showInput = -1;
@@ -136,11 +148,7 @@ export class App implements OnInit {
           if ((pileSize >> d) & 1) {
             const targetSize = pileSize ^ xor;
             const coinsToRemove = pileSize - targetSize;
-            this.robotMoveCoins = coinsToRemove;
-            this.robotMovePile = pile.key;
             this.removeCoins(pile, coinsToRemove);
-            this.robotMoveCoins = -1;
-            this.robotMovePile = -1;
             return;
           }
         }
